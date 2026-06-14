@@ -1,0 +1,70 @@
+---
+/**
+ * Termos do Programa de Promotores — conteúdo-base. noindex até revisão
+ * jurídica + CNPJ/contato reais. NÃO publicar como definitivo sem revisão.
+ */
+import ContentPage from '../layouts/ContentPage.astro';
+import { CLOSING_LABEL, brl, COMMISSION_DIRECT, BONUS_FLAT, BONUS_THRESHOLD } from '../config';
+---
+
+<ContentPage
+  title="Termos do Programa de Promotores | Supletivo Brasil"
+  description="Regras de participação no Programa de Promotores: comissão por matrícula paga, bônus de volume, pagamento por Pix e condições de suspensão."
+  noindex={true}
+  kicker="Documento em revisão"
+  h1="Termos do Programa de Promotores"
+>
+  <p class="updated">
+    <strong>Rascunho — revisar com o jurídico</strong> e inserir CNPJ, razão
+    social e contato oficiais antes de publicar.
+  </p>
+
+  <h2>1. O que é o programa</h2>
+  <p>
+    O Programa de Promotores permite que pessoas físicas indiquem matrículas e
+    recebam uma comissão por cada matrícula <strong>paga</strong> originada do
+    seu link de indicação. A participação é autônoma e voluntária:
+    <strong>não gera vínculo empregatício</strong>, societário ou de
+    exclusividade.
+  </p>
+
+  <h2>2. Cadastro e aprovação</h2>
+  <p>
+    Para participar, o candidato cria um cadastro (CPF, contato, endereço,
+    documento e selfie), informa uma chave Pix em seu próprio CPF, conclui um
+    treinamento online com aproveitamento mínimo e passa por uma entrevista com
+    o coordenador do polo. A aprovação é condição para a liberação do link.
+  </p>
+
+  <h2>3. Comissão e bônus</h2>
+  <p>
+    O promotor recebe {brl(COMMISSION_DIRECT)} por matrícula paga vinculada ao
+    seu link, além de {brl(BONUS_FLAT)} de bônus a cada {BONUS_THRESHOLD}
+    matrículas pagas na mesma semana. Os valores podem ser ajustados a qualquer
+    tempo; valem sempre os exibidos no painel do promotor. A comissão é devida
+    apenas quando a matrícula é efetivamente paga.
+  </p>
+
+  <h2>4. Pagamento</h2>
+  <p>
+    O fechamento ocorre semanalmente e o pagamento é feito por Pix
+    ({CLOSING_LABEL}), na chave cadastrada e validada no nome do promotor.
+    Estornos, cancelamentos ou indícios de fraude podem reverter comissões já
+    apuradas.
+  </p>
+
+  <h2>5. Conduta e suspensão</h2>
+  <p>
+    Indicações falsas, autoindicação fraudulenta, spam, promessas indevidas em
+    nome da instituição ou qualquer abuso podem levar à suspensão do acesso e ao
+    bloqueio do link, sem prejuízo das medidas cabíveis.
+  </p>
+
+  <h2>6. Dados pessoais</h2>
+  <p>
+    O tratamento de dados segue a <a href="/privacidade/">Política de
+    Privacidade</a>, em conformidade com a LGPD (Lei nº 13.709/2018).
+  </p>
+
+  <p class="updated">Última atualização: definir na publicação.</p>
+</ContentPage>

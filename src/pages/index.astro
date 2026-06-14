@@ -1,0 +1,73 @@
+---
+import Base from '../layouts/Base.astro';
+import ProgressBar from '../components/ProgressBar.astro';
+import Header from '../components/Header.astro';
+import Hero from '../components/Hero.astro';
+import Steps from '../components/Steps.astro';
+import Earnings from '../components/Earnings.astro';
+import Path from '../components/Path.astro';
+import Requirements from '../components/Requirements.astro';
+import Trust from '../components/Trust.astro';
+import Faq from '../components/Faq.astro';
+import FinalCta from '../components/FinalCta.astro';
+import StickyCta from '../components/StickyCta.astro';
+import Footer from '../components/Footer.astro';
+import { faq } from '../data/faq';
+import { BRAND, PROGRAM, brl, COMMISSION_DIRECT } from '../config';
+
+const title = 'Seja Promotor — indique matrículas e ganhe por Pix | Supletivo Brasil';
+const description =
+  `Ganhe ${brl(COMMISSION_DIRECT)} por matrícula paga, mais bônus por volume, recebidos por Pix toda semana. ` +
+  'Grátis pra entrar, sem estoque e sem vender nada. Cadastre-se pelo celular.';
+
+const site = Astro.site!;
+const siteUrl = site.href;
+
+// JSON-LD — Organization + FAQPage (sem prova social inventada)
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Organization',
+      '@id': `${siteUrl}#org`,
+      name: `${BRAND} — ${PROGRAM}`,
+      url: siteUrl,
+      logo: new URL('/apple-touch-icon.png', site).href,
+    },
+    {
+      '@type': 'WebSite',
+      '@id': `${siteUrl}#site`,
+      name: `${BRAND} · ${PROGRAM}`,
+      url: siteUrl,
+      inLanguage: 'pt-BR',
+      publisher: { '@id': `${siteUrl}#org` },
+    },
+    {
+      '@type': 'FAQPage',
+      '@id': `${siteUrl}#faq`,
+      mainEntity: faq.map((item) => ({
+        '@type': 'Question',
+        name: item.q,
+        acceptedAnswer: { '@type': 'Answer', text: item.a },
+      })),
+    },
+  ],
+};
+---
+
+<Base {title} {description} {schema}>
+  <ProgressBar />
+  <Header />
+  <main id="conteudo">
+    <Hero />
+    <Steps />
+    <Earnings />
+    <Path />
+    <Requirements />
+    <Trust />
+    <Faq />
+    <FinalCta />
+  </main>
+  <Footer />
+  <StickyCta />
+</Base>

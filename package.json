@@ -1,0 +1,27 @@
+{
+  "name": "landing-promotor",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "assets": "node tools/generate-assets.mjs",
+    "test": "vitest run",
+    "test:e2e": "playwright test"
+  },
+  "dependencies": {
+    "astro": "^6.4.6"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "^4.11.3",
+    "@fontsource/archivo-black": "^5.2.8",
+    "@fontsource/inter": "^5.2.8",
+    "@playwright/test": "^1.60.0",
+    "happy-dom": "^20.10.2",
+    "opentype.js": "^1.3.4",
+    "sharp": "^0.35.0",
+    "vitest": "^4.1.8"
+  }
+}

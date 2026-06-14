@@ -1,0 +1,443 @@
+---
+/**
+ * Seção 2 — Quanto dá pra ganhar. Explica o modelo (comissão direta + bônus
+ * de volume) e traz uma calculadora. TODOS os números vêm de src/config.ts
+ * (que lê o .env) — fonte única. Sem JS: tabela estática responde.
+ * Regra de copy: nenhuma promessa de renda; é simulação pela mecânica real.
+ */
+import CtaButton from './CtaButton.astro';
+import {
+  COMMISSION_DIRECT,
+  BONUS_FLAT,
+  BONUS_THRESHOLD,
+  BONUS_REPEATS,
+  CLOSING_LABEL,
+  weeklyEarnings,
+  brl,
+} from '../config';
+
+const DEFAULT_N = BONUS_THRESHOLD; // começa mostrando 1 bloco de bônus
+const start = weeklyEarnings(DEFAULT_N);
+
+const bonusRule = BONUS_REPEATS
+  ? `a cada ${BONUS_THRESHOLD} pagas na semana`
+  : `ao bater ${BONUS_THRESHOLD} pagas na semana`;
+
+// Tabela de fallback (sem JS) — mesmos números da calculadora
+const fallbackRows = [1, BONUS_THRESHOLD, BONUS_THRESHOLD * 2, BONUS_THRESHOLD * 3].map((n) => ({
+  n,
+  ...weeklyEarnings(n),
+}));
+---
+
+<section id="ganhos" class="earn section on-dark grain" aria-labelledby="earn-title" data-section="ganhos">
+  <span class="sec-num" aria-hidden="true" data-n="02"></span>
+  <div class="container earn-inner">
+    <p class="kicker earn-kicker" data-reveal>Quanto dá pra ganhar</p>
+    <h2 id="earn-title" data-reveal>Você controla o quanto entra</h2>
+    <p class="earn-lead" data-reveal style="--d: 1">
+      São duas formas de ganhar, somadas toda semana. Quanto mais gente você
+      indica e mais matrículas são pagas, mais cai no seu Pix.
+    </p>
+
+    <div class="earn-models" data-reveal style="--d: 2">
+      <div class="model">
+        <span class="model-tag">Comissão direta</span>
+        <p class="model-value">{brl(COMMISSION_DIRECT)}</p>
+        <p class="model-desc">por <strong>cada matrícula paga</strong> que vier do seu link</p>
+      </div>
+      <span class="model-plus" aria-hidden="true">+</span>
+      <div class="model">
+        <span class="model-tag">Bônus de volume</span>
+        <p class="model-value">{brl(BONUS_FLAT)}</p>
+        <p class="model-desc">de bônus <strong>{bonusRule}</strong></p>
+      </div>
+    </div>
+
+    <!-- Calculadora (com JS) -->
+    <div class="calc calc-interactive" data-spotlight data-reveal style="--d: 3">
+      <label class="calc-q" for="calc-range">Quantas matrículas pagas por semana?</label>
+
+      <div class="calc-rangewrap">
+        <input
+          id="calc-range"
+          class="calc-range"
+          type="range"
+          min="1"
+          max="20"
+          step="1"
+          value={DEFAULT_N}
+          data-calc-range
+          aria-label="Matrículas pagas por semana"
+        />
+        <div class="calc-ticks" aria-hidden="true"><span>1</span><span>10</span><span>20</span></div>
+      </div>
+
+      <p class="calc-paidline">
+        <strong data-calc-paid>{DEFAULT_N}</strong> matrículas pagas na semana
+      </p>
+
+      <div class="calc-result">
+        <span class="calc-result-label">você recebe</span>
+        <p class="calc-total"><span data-calc-total>{brl(start.total)}</span></p>
+        <span class="calc-result-when">no seu Pix · {CLOSING_LABEL}</span>
+      </div>
+
+      <dl class="calc-break">
+        <div>
+          <dt>Comissão ({brl(COMMISSION_DIRECT)} cada)</dt>
+          <dd data-calc-direct>{brl(start.direct)}</dd>
+        </div>
+        <div class="calc-bonus-row on" data-calc-bonus-row>
+          <dt>Bônus de volume</dt>
+          <dd data-calc-bonus>{brl(start.bonus)}</dd>
+        </div>
+      </dl>
+
+      <p class="calc-note">
+        Simulação pelos valores atuais do programa. Não é promessa de renda:
+        você ganha conforme indica e as pessoas pagam a matrícula.
+      </p>
+    </div>
+
+    <!-- Tabela estática (sem JS) -->
+    <div class="calc calc-fallback">
+      <p class="calc-q">Quanto dá em uma semana</p>
+      <table class="calc-table">
+        <thead>
+          <tr><th>Matrículas pagas</th><th>Você recebe</th></tr>
+        </thead>
+        <tbody>
+          {fallbackRows.map((row) => (
+            <tr>
+              <td>{row.n}</td>
+              <td>
+                {brl(row.total)}
+                {row.bonus > 0 && <span class="calc-table-bonus"> (com bônus)</span>}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <p class="calc-note">
+        Comissão de {brl(COMMISSION_DIRECT)} por matrícula paga + {brl(BONUS_FLAT)}
+        {' '}{bonusRule}. Não é promessa de renda.
+      </p>
+    </div>
+
+    <div class="earn-cta" data-reveal style="--d: 4">
+      <CtaButton position="ganhos" class="btn-xl" />
+      <p class="microcopy">Grátis pra entrar · você recebe por Pix toda semana</p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .earn {
+    background:
+      radial-gradient(46rem 30rem at 50% 0%, rgb(255 196 0 / 0.1), transparent 65%),
+      var(--ink);
+    color: var(--paper);
+    text-align: center;
+    overflow: clip;
+  }
+
+  .earn .sec-num {
+    color: var(--paper);
+  }
+
+  .earn-kicker {
+    color: var(--yellow);
+  }
+
+  .earn-inner {
+    max-width: 46rem;
+  }
+
+  #earn-title {
+    font-size: var(--text-h2-sm);
+  }
+
+  .earn-lead {
+    color: var(--muted-on-dark);
+    font-size: var(--text-lg);
+    margin-top: 1rem;
+    margin-inline: auto;
+    max-width: 40ch;
+  }
+
+  /* dois modelos lado a lado, com "+" entre eles */
+  .earn-models {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 2.6rem;
+  }
+
+  .model {
+    flex: 1 1 14rem;
+    background: rgb(255 255 255 / 0.05);
+    border: 1px solid rgb(255 255 255 / 0.14);
+    border-radius: var(--radius);
+    padding: 1.5rem 1.2rem;
+  }
+
+  .model-tag {
+    display: inline-block;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--yellow);
+    margin-bottom: 0.5rem;
+  }
+
+  .model-value {
+    font-family: var(--font-display);
+    font-size: clamp(2.2rem, 1.6rem + 2.6vw, 3.2rem);
+    line-height: 1;
+    color: var(--paper);
+  }
+
+  .model-desc {
+    margin-top: 0.5rem;
+    font-size: 0.92rem;
+    color: var(--muted-on-dark);
+  }
+
+  .model-desc strong {
+    color: var(--paper);
+  }
+
+  .model-plus {
+    align-self: center;
+    font-family: var(--font-display);
+    font-size: 2rem;
+    color: var(--yellow);
+  }
+
+  @media (max-width: 560px) {
+    .model-plus {
+      transform: rotate(90deg);
+    }
+  }
+
+  /* calculadora */
+  .calc {
+    margin-top: 1.8rem;
+    text-align: left;
+    background:
+      radial-gradient(
+        26rem circle at var(--mx, 50%) var(--my, 0%),
+        rgb(255 196 0 / 0.09),
+        transparent 65%
+      ),
+      linear-gradient(180deg, var(--ink-soft), var(--ink));
+    border: 1px solid rgb(255 196 0 / 0.3);
+    border-radius: var(--radius-lg);
+    padding: clamp(1.6rem, 4vw, 2.4rem);
+  }
+
+  /* alterna interativa vs. estática conforme houver JS */
+  .calc-fallback {
+    display: none;
+  }
+
+  :global(html:not(.js)) .calc-interactive {
+    display: none;
+  }
+
+  :global(html:not(.js)) .calc-fallback {
+    display: block;
+  }
+
+  .calc-q {
+    display: block;
+    font-weight: 700;
+    font-size: 1.02rem;
+    color: var(--paper);
+    margin-bottom: 1.2rem;
+  }
+
+  .calc-rangewrap {
+    margin-bottom: 0.6rem;
+  }
+
+  .calc-range {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 10px;
+    border-radius: 999px;
+    background: linear-gradient(
+      90deg,
+      var(--yellow) 0 var(--calc-fill, 22%),
+      rgb(255 255 255 / 0.16) var(--calc-fill, 22%) 100%
+    );
+    cursor: pointer;
+    touch-action: pan-y;
+  }
+
+  .calc-range::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--yellow);
+    border: 4px solid var(--ink);
+    box-shadow: 0 4px 12px -2px rgb(255 196 0 / 0.7);
+  }
+
+  .calc-range::-moz-range-thumb {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--yellow);
+    border: 4px solid var(--ink);
+  }
+
+  .calc-range:focus-visible {
+    outline: 3px solid var(--yellow);
+    outline-offset: 6px;
+  }
+
+  .calc-ticks {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.72rem;
+    color: var(--muted-on-dark);
+    margin-top: 0.4rem;
+  }
+
+  .calc-paidline {
+    font-size: 0.95rem;
+    color: var(--muted-on-dark);
+  }
+
+  .calc-paidline strong {
+    color: var(--yellow);
+    font-size: 1.1rem;
+  }
+
+  .calc-result {
+    margin-top: 1.2rem;
+    text-align: center;
+    padding: 1.2rem;
+    border-radius: var(--radius);
+    background: rgb(0 115 77 / 0.18);
+    border: 1px solid rgb(0 115 77 / 0.4);
+  }
+
+  .calc-result-label {
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted-on-dark);
+  }
+
+  .calc-total {
+    font-family: var(--font-display);
+    font-size: clamp(2.8rem, 2rem + 4vw, 4.4rem);
+    line-height: 1.05;
+    color: var(--yellow);
+    margin: 0.2rem 0;
+  }
+
+  .calc-result-when {
+    font-size: 0.86rem;
+    color: var(--paper);
+  }
+
+  .calc-break {
+    margin: 1.3rem 0 0;
+    display: grid;
+    gap: 0.55rem;
+  }
+
+  .calc-break div {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    border-bottom: 1px dashed rgb(255 255 255 / 0.14);
+    padding-bottom: 0.4rem;
+  }
+
+  .calc-break dt {
+    color: var(--muted-on-dark);
+    font-size: 0.92rem;
+  }
+
+  .calc-break dd {
+    margin: 0;
+    font-weight: 700;
+    font-family: var(--font-display);
+    color: var(--paper);
+  }
+
+  /* linha de bônus apaga quando o bônus é zero */
+  .calc-bonus-row {
+    opacity: 0.4;
+    transition: opacity 0.3s var(--ease-out);
+  }
+
+  .calc-bonus-row.on {
+    opacity: 1;
+  }
+
+  .calc-bonus-row.on dd {
+    color: var(--yellow);
+  }
+
+  .calc-note {
+    margin-top: 1.2rem;
+    font-size: 0.8rem;
+    color: var(--muted-on-dark);
+  }
+
+  /* tabela de fallback */
+  .calc-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+  }
+
+  .calc-table th,
+  .calc-table td {
+    text-align: left;
+    padding: 0.7rem 0.4rem;
+    border-bottom: 1px solid rgb(255 255 255 / 0.14);
+  }
+
+  .calc-table th {
+    font-size: 0.74rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted-on-dark);
+  }
+
+  .calc-table td:last-child {
+    font-weight: 700;
+    color: var(--yellow);
+    font-family: var(--font-display);
+  }
+
+  .calc-table-bonus {
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: 0.78rem;
+    color: var(--muted-on-dark);
+  }
+
+  .earn-cta {
+    margin-top: 2.2rem;
+  }
+
+  .earn .microcopy {
+    color: var(--muted-on-dark);
+  }
+</style>
