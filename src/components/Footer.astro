@@ -17,16 +17,11 @@ const year = new Date().getFullYear();
     <div class="footer-top">
       <div class="footer-brand">
         <Logo variant="light" />
-        <!-- bandeirinha tremulando: assinatura de fechamento -->
-        <svg class="footer-flag" viewBox="0 0 84 64" fill="none" aria-hidden="true">
-          <rect x="4" y="2" width="4" height="60" rx="2" fill="#ffffff2b"></rect>
-          <circle cx="6" cy="3" r="3" fill="var(--yellow)"></circle>
-          <g class="ff-cloth">
-            <rect x="8" y="6" width="62" height="40" rx="4" fill="var(--green)"></rect>
-            <path d="M39 12l22 14-22 14-22-14z" fill="var(--yellow)"></path>
-            <circle cx="39" cy="26" r="8.5" fill="var(--blue)"></circle>
-            <path d="M35 26.2l3 3 5.5-6" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path>
-          </g>
+        <!-- selo dourado: assinatura de fechamento -->
+        <svg class="footer-flag" viewBox="0 0 64 64" fill="none" aria-hidden="true">
+          <path d="M32 6 58 32 32 58 6 32Z" fill="none" stroke="var(--gold)" stroke-width="2.4" stroke-linejoin="round"></path>
+          <path d="M32 16 48 32 32 48 16 32Z" fill="var(--gold)" opacity="0.12"></path>
+          <path d="M24 32l6 6 12-13" stroke="var(--gold)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path>
         </svg>
       </div>
       <nav aria-label="Links legais" class="footer-nav">
@@ -50,7 +45,7 @@ const year = new Date().getFullYear();
     </div>
 
     <div class="footer-legal">
-      <p>Supletivo Brasil · Programa de Promotores · CNPJ 00.000.000/0001-00 · contato@v7m.org</p>
+      <p>V7M · Programa de Promotores · CNPJ 00.000.000/0001-00 · contato@v7m.org</p>
       <p>
         O Programa de Promotores remunera por <strong>indicação de matrículas
         pagas</strong>, com pagamento por Pix {CLOSING_LABEL}. A participação é
@@ -64,7 +59,7 @@ const year = new Date().getFullYear();
         documento, selfie e chave Pix) são usados apenas para identificação,
         pagamento e prevenção a fraude, conforme a LGPD (Lei nº 13.709/2018).
       </p>
-      <p class="footer-copy">© {year} Supletivo Brasil. Todos os direitos reservados.</p>
+      <p class="footer-copy">© {year} V7M. Todos os direitos reservados.</p>
     </div>
   </div>
 </footer>

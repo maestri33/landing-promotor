@@ -16,7 +16,7 @@ const rawAppUrl =
 // sem barra final: evita param colado em path duplicado e 301 no destino
 export const APP_URL: string = rawAppUrl.replace(/\/+$/, '');
 
-export const BRAND = 'Supletivo Brasil';
+export const BRAND = 'V7M';
 /** Selo do programa exibido junto ao wordmark */
 export const PROGRAM = 'Promotor';
 

@@ -11,8 +11,8 @@ interface Props {
 }
 const { variant = 'light', withLink = true } = Astro.props;
 const Tag = withLink ? 'a' : 'span';
-const [brandA, ...brandRest] = BRAND.split(' ');
-const brandB = brandRest.join(' ');
+// destaca dígitos da marca em dourado (ex.: V7M → "7" dourado)
+const chars = [...BRAND];
 ---
 
 <Tag class={`logo logo--${variant}`} {...withLink ? { href: '/', 'aria-label': `${BRAND} ${PROGRAM} — página inicial` } : {}}>
@@ -28,7 +28,7 @@ const brandB = brandRest.join(' ');
       stroke-width="4"
       stroke-linecap="round"></path>
   </svg>
-  <span class="logo-word">{brandA}&nbsp;<b>{brandB}</b></span>
+  <span class="logo-word">{chars.map((c) => (/\d/.test(c) ? <b>{c}</b> : c))}</span>
   <span class="logo-tag">{PROGRAM}</span>
 </Tag>
 

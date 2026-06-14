@@ -1,24 +1,39 @@
 /* ============================================================
-   Design tokens — Supletivo Brasil · Promotor
-   Bandeira do Brasil com tratamento institucional/premium.
+   Design tokens — V7M · Promotor
+   Direção: dark luxury — dourado metálico sobre preto/grafite,
+   superfícies claras em branco/cinza quente. Sem cor de bandeira.
    ============================================================ */
 :root {
-  /* Paleta */
-  --green: #00734d;
-  --green-deep: #005238;
-  --yellow: #ffc400;
-  --yellow-soft: #ffd75e;
-  --blue: #002776;
-  --blue-deep: #001a52;
-  --ink: #0b1220;
-  --ink-soft: #121d33;
+  /* Neutros (preto → branco) */
+  --black: #0b0b0c;
+  --char: #141416; /* grafite (superfície escura principal) */
+  --char-2: #1d1d20; /* grafite mais claro (cards no escuro) */
   --paper: #ffffff;
-  --paper-soft: #f5f7f3;
-  --line-light: #e3e7ee;
+  --paper-soft: #f5f4f1; /* cinza quente claro */
+  --line-light: #e7e4dd;
+
+  /* Dourado (acento único) */
+  --gold: #d9b15a;
+  --gold-soft: #f0d493;
+  --gold-deep: #a87b2e;
+  --gold-ink: #8a6526; /* dourado legível sobre fundo claro (AA) */
+  /* sheen metálico — usado no CTA e na palavra de destaque */
+  --gold-grad: linear-gradient(135deg, #f4dca0 0%, #d9b15a 42%, #b07f30 72%, #ecc97f 100%);
 
   /* Texto secundário (contraste AA garantido) */
-  --muted-on-dark: #b9c3db;  /* sobre --ink / --blue */
-  --muted-on-light: #49536a; /* sobre --paper / --paper-soft */
+  --muted-on-dark: #b4b4bb; /* sobre --black / --char */
+  --muted-on-light: #5c5c63; /* sobre --paper / --paper-soft */
+
+  /* ---- Aliases de compatibilidade (componentes herdados) ----
+     mapeiam os nomes antigos da bandeira para a paleta de luxo */
+  --yellow: var(--gold);
+  --yellow-soft: var(--gold-soft);
+  --blue: var(--char);
+  --blue-deep: var(--black);
+  --green: var(--gold-ink);
+  --green-deep: var(--gold-deep);
+  --ink: var(--black);
+  --ink-soft: var(--char-2);
 
   /* Tipografia */
   --font-display: 'Archivo Black', 'Arial Black', 'Helvetica Neue', sans-serif;
@@ -27,7 +42,6 @@
   --text-base: clamp(1rem, 0.95rem + 0.35vw, 1.125rem);
   --text-lg: clamp(1.125rem, 1.02rem + 0.55vw, 1.375rem);
   --text-h2: clamp(2rem, 1.3rem + 3vw, 3.6rem);
-  /* seções de instrução/dúvida: h2 menor — o olho "engorda" rumo à decisão */
   --text-h2-sm: clamp(1.55rem, 1.2rem + 1.6vw, 2.4rem);
   --text-h3: clamp(1.15rem, 1.05rem + 0.5vw, 1.35rem);
   --text-hero: clamp(2.85rem, 1.1rem + 8vw, 6.8rem);

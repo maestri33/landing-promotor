@@ -48,7 +48,7 @@ const valor = brl(COMMISSION_DIRECT);
   <div class="container hero-inner">
     <p class="hero-eyebrow anim-up" style="--i: 0">
       <span class="dot" aria-hidden="true"></span>
-      Programa de Promotores · Supletivo Brasil
+      Programa de Promotores · V7M
     </p>
 
     <h1 id="hero-title" class="hero-title">
@@ -131,7 +131,7 @@ const valor = brl(COMMISSION_DIRECT);
     padding-top: max(clamp(7rem, 16vh, 9rem), calc(env(safe-area-inset-top) + 6rem));
     padding-bottom: 0;
     background:
-      radial-gradient(58rem 32rem at 18% 4%, rgb(255 196 0 / 0.1), transparent 62%),
+      radial-gradient(58rem 32rem at 18% 4%, rgb(217 177 90 / 0.1), transparent 62%),
       linear-gradient(168deg, var(--blue) 0%, var(--blue-deep) 55%, var(--ink) 100%);
     color: var(--paper);
     overflow: clip;
@@ -154,7 +154,7 @@ const valor = brl(COMMISSION_DIRECT);
     height: 34rem;
     left: -12rem;
     top: -10rem;
-    background: rgb(255 196 0 / 0.14);
+    background: rgb(217 177 90 / 0.14);
   }
 
   .blob-2 {
@@ -162,7 +162,7 @@ const valor = brl(COMMISSION_DIRECT);
     height: 28rem;
     right: -10rem;
     bottom: -6rem;
-    background: rgb(0 115 77 / 0.35);
+    background: rgb(168 123 46 / 0.35);
   }
 
   @media (prefers-reduced-motion: no-preference) {
@@ -259,11 +259,11 @@ const valor = brl(COMMISSION_DIRECT);
     letter-spacing: 0.15em;
     text-transform: uppercase;
     color: var(--yellow);
-    border: 1px solid rgb(255 196 0 / 0.4);
+    border: 1px solid rgb(217 177 90 / 0.4);
     border-radius: 999px;
     padding: 0.5em 1.1em;
     margin-bottom: 1.8rem;
-    background: rgb(255 196 0 / 0.06);
+    background: rgb(217 177 90 / 0.06);
   }
 
   .hero-eyebrow .dot {
@@ -307,7 +307,17 @@ const valor = brl(COMMISSION_DIRECT);
 
   .w-accent {
     position: relative;
-    color: var(--yellow);
+    color: var(--gold);
+    background: var(--gold-grad);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  @supports not ((-webkit-background-clip: text) or (background-clip: text)) {
+    .w-accent {
+      -webkit-text-fill-color: var(--gold);
+    }
   }
 
   .swoosh {

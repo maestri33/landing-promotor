@@ -12,21 +12,21 @@ const valor = brl(COMMISSION_DIRECT);
   <svg viewBox="0 0 360 560" fill="none">
     <defs>
       <linearGradient id="pp-screen" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0" stop-color="#0c1830"></stop>
-        <stop offset="1" stop-color="#0a1226"></stop>
+        <stop offset="0" stop-color="#16161a"></stop>
+        <stop offset="1" stop-color="#0e0e10"></stop>
       </linearGradient>
       <linearGradient id="pp-pix" x1="0" y1="0" x2="1" y2="1">
-        <stop offset="0" stop-color="#00875b"></stop>
-        <stop offset="1" stop-color="#005238"></stop>
+        <stop offset="0" stop-color="#f0d493"></stop>
+        <stop offset="1" stop-color="#b78a36"></stop>
       </linearGradient>
     </defs>
 
     <!-- sombra -->
-    <ellipse class="pp-shadow" cx="180" cy="536" rx="120" ry="14" fill="#0b1220"></ellipse>
+    <ellipse class="pp-shadow" cx="180" cy="536" rx="120" ry="14" fill="#000000"></ellipse>
 
     <!-- corpo do celular -->
     <rect x="44" y="14" width="272" height="532" rx="40" fill="#05080f"></rect>
-    <rect x="44" y="14" width="272" height="532" rx="40" fill="none" stroke="#2a3550" stroke-width="2"></rect>
+    <rect x="44" y="14" width="272" height="532" rx="40" fill="none" stroke="#3a3a42" stroke-width="2"></rect>
     <rect x="54" y="24" width="252" height="512" rx="32" fill="url(#pp-screen)"></rect>
 
     <!-- ilha / notch -->
@@ -60,15 +60,15 @@ const valor = brl(COMMISSION_DIRECT);
     <!-- toasts de Pix recebido (entram em loop) -->
     <g class="pp-toast pp-toast-1">
       <rect x="74" y="318" width="212" height="62" rx="14" fill="url(#pp-pix)"></rect>
-      <circle cx="104" cy="349" r="16" fill="#ffffff1f"></circle>
-      <path d="M97 349l5 5 9-10" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path>
+      <circle cx="104" cy="349" r="16" fill="#0b0b0c24"></circle>
+      <path d="M97 349l5 5 9-10" stroke="#0b0b0c" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path>
       <text x="130" y="344" class="pp-toast-t">Pix recebido</text>
       <text x="130" y="366" class="pp-toast-v">+ {valor}</text>
     </g>
     <g class="pp-toast pp-toast-2">
       <rect x="74" y="394" width="212" height="62" rx="14" fill="url(#pp-pix)"></rect>
-      <circle cx="104" cy="425" r="16" fill="#ffffff1f"></circle>
-      <path d="M97 425l5 5 9-10" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path>
+      <circle cx="104" cy="425" r="16" fill="#0b0b0c24"></circle>
+      <path d="M97 425l5 5 9-10" stroke="#0b0b0c" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path>
       <text x="130" y="420" class="pp-toast-t">Pix recebido</text>
       <text x="130" y="442" class="pp-toast-v">+ {valor}</text>
     </g>
@@ -137,13 +137,13 @@ const valor = brl(COMMISSION_DIRECT);
     font-family: var(--font-body);
     font-weight: 700;
     font-size: 13px;
-    fill: #d7f5e8;
+    fill: #2a2412;
   }
 
   .pp-toast-v {
     font-family: var(--font-display);
     font-size: 18px;
-    fill: #fff;
+    fill: #0b0b0c;
   }
 
   .pp-shadow {
