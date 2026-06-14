@@ -48,7 +48,7 @@ Copie `.env.example` para `.env`:
 
 | Variável                   | O que controla                                            | Default |
 | -------------------------- | --------------------------------------------------------- | ------- |
-| `PUBLIC_APP_URL`           | Destino do CTA (cadastro do candidato a promotor)         | dev `http://localhost:3000` · build `https://app.v7m.org` |
+| `PUBLIC_APP_URL`           | Destino do CTA (cadastro do candidato a promotor)         | dev `http://localhost:3000` · build `https://trabalhar.v7m.org` |
 | `SITE`                     | Domínio canônico (canonical, OG, sitemap, robots)         | `https://trabalhar.v7m.org` |
 | `PUBLIC_COMMISSION_DIRECT` | Comissão por matrícula paga (R$)                          | `100` |
 | `PUBLIC_BONUS_FLAT`        | Bônus por bloco de indicações pagas na semana (R$)        | `500` |

@@ -11,7 +11,7 @@
  * -------------------------------------------------------------------------- */
 const rawAppUrl =
   import.meta.env.PUBLIC_APP_URL ??
-  (import.meta.env.DEV ? 'http://localhost:3000' : 'https://app.v7m.org');
+  (import.meta.env.DEV ? 'http://localhost:3000' : 'https://trabalhar.v7m.org');
 
 // sem barra final: evita param colado em path duplicado e 301 no destino
 export const APP_URL: string = rawAppUrl.replace(/\/+$/, '');

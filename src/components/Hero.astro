@@ -20,6 +20,7 @@ const valor = brl(COMMISSION_DIRECT);
   <div class="hero-decor" aria-hidden="true">
     <span class="blob blob-1"></span>
     <span class="blob blob-2"></span>
+    <span class="blob blob-3"></span>
     <svg class="hero-diamonds" viewBox="0 0 900 900" fill="none">
       <g stroke="#ffffff" stroke-opacity="0.05" stroke-width="2">
         <path d="M450 50 850 450 450 850 50 450Z"></path>
@@ -131,8 +132,10 @@ const valor = brl(COMMISSION_DIRECT);
     padding-top: max(clamp(7rem, 16vh, 9rem), calc(env(safe-area-inset-top) + 6rem));
     padding-bottom: 0;
     background:
-      radial-gradient(58rem 32rem at 18% 4%, rgb(217 177 90 / 0.1), transparent 62%),
-      linear-gradient(168deg, var(--blue) 0%, var(--blue-deep) 55%, var(--ink) 100%);
+      radial-gradient(48rem 34rem at 12% 6%, rgb(240 212 147 / 0.20), transparent 58%),
+      radial-gradient(42rem 32rem at 88% 20%, rgb(217 177 90 / 0.18), transparent 55%),
+      radial-gradient(56rem 42rem at 72% 98%, rgb(168 123 46 / 0.26), transparent 60%),
+      linear-gradient(168deg, #16161a 0%, #0b0b0c 58%, #050506 100%);
     color: var(--paper);
     overflow: clip;
   }
@@ -146,23 +149,32 @@ const valor = brl(COMMISSION_DIRECT);
   .blob {
     position: absolute;
     border-radius: 50%;
-    filter: blur(70px);
+    filter: blur(85px);
+    mix-blend-mode: screen; /* ouro se funde no fundo escuro */
   }
 
   .blob-1 {
-    width: 34rem;
-    height: 34rem;
-    left: -12rem;
-    top: -10rem;
-    background: rgb(217 177 90 / 0.14);
+    width: 42rem;
+    height: 42rem;
+    left: -13rem;
+    top: -12rem;
+    background: rgb(240 212 147 / 0.26);
   }
 
   .blob-2 {
-    width: 28rem;
-    height: 28rem;
-    right: -10rem;
-    bottom: -6rem;
-    background: rgb(168 123 46 / 0.35);
+    width: 34rem;
+    height: 34rem;
+    right: -11rem;
+    bottom: -8rem;
+    background: rgb(217 177 90 / 0.4);
+  }
+
+  .blob-3 {
+    width: 30rem;
+    height: 30rem;
+    left: 40%;
+    top: 36%;
+    background: rgb(168 123 46 / 0.34);
   }
 
   @media (prefers-reduced-motion: no-preference) {
@@ -172,6 +184,10 @@ const valor = brl(COMMISSION_DIRECT);
 
     .blob-2 {
       animation: blob-drift 19s ease-in-out infinite alternate-reverse;
+    }
+
+    .blob-3 {
+      animation: blob-drift 23s ease-in-out infinite alternate;
     }
   }
 
