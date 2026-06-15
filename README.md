@@ -53,14 +53,16 @@ Copie `.env.example` para `.env`:
 | `PUBLIC_COMMISSION_DIRECT` | Comissão por matrícula paga (R$)                          | `100` |
 | `PUBLIC_BONUS_FLAT`        | Bônus por bloco de indicações pagas na semana (R$)        | `500` |
 | `PUBLIC_BONUS_THRESHOLD`   | Tamanho do bloco que destrava o bônus                     | `5` |
-| `PUBLIC_BONUS_REPEATS`     | `true` = a cada bloco; `false` = degrau único             | `true` |
+| `PUBLIC_BONUS_REPEATS`     | `false` = degrau único semanal; `true` = a cada bloco     | `false` |
 
 Os valores de comissão são lidos em `src/config.ts` (fonte única) e usados na
 seção "Quanto dá pra ganhar", na calculadora, no FAQ, nos termos e no schema.
 
-> ⚠️ **Conferir contra `finance/config.py` antes de produção.** O brief original
-> descrevia o bônus como "degrau só" (1x ao atingir 5); o valor atual aqui é
-> **`PUBLIC_BONUS_REPEATS=true`** (a cada 5). É promessa de dinheiro — alinhar.
+> ⚠️ **Bônus = degrau único, semanal.** Atingiu 5 matrículas pagas na semana →
+> ganha o bônus (1x); abaixo de 5, não ganha; acima de 5 (10, 50, 100) o bônus
+> continua sendo pago **uma única vez** na semana, somado às comissões por
+> indicação. Refletido em `PUBLIC_BONUS_REPEATS=false`. Conferir os valores em
+> `finance/config.py`.
 
 ## Vínculo com o polo (hub → ref)
 

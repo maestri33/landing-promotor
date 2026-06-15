@@ -12,7 +12,7 @@ export interface FaqItem {
 
 const bonusFrase = BONUS_REPEATS
   ? `${brl(BONUS_FLAT)} de bônus a cada ${BONUS_THRESHOLD} matrículas pagas na mesma semana`
-  : `${brl(BONUS_FLAT)} de bônus ao atingir ${BONUS_THRESHOLD} matrículas pagas na semana`;
+  : `${brl(BONUS_FLAT)} de bônus ao atingir ${BONUS_THRESHOLD} matrículas pagas na semana (bônus único por semana, não acumula)`;
 
 export const faq: FaqItem[] = [
   {

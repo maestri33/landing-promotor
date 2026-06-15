@@ -21,7 +21,7 @@ const start = weeklyEarnings(DEFAULT_N);
 
 const bonusRule = BONUS_REPEATS
   ? `a cada ${BONUS_THRESHOLD} pagas na semana`
-  : `ao bater ${BONUS_THRESHOLD} pagas na semana`;
+  : `ao bater ${BONUS_THRESHOLD} pagas na semana (1x por semana)`;
 
 // Tabela de fallback (sem JS) — mesmos números da calculadora
 const fallbackRows = [1, BONUS_THRESHOLD, BONUS_THRESHOLD * 2, BONUS_THRESHOLD * 3].map((n) => ({
