@@ -11,7 +11,7 @@
  * -------------------------------------------------------------------------- */
 const rawAppUrl =
   import.meta.env.PUBLIC_APP_URL ??
-  (import.meta.env.DEV ? 'http://localhost:3000' : 'https://candidato.v7m.org');
+  (import.meta.env.DEV ? 'http://localhost:3000' : 'https://app.v7m.org');
 
 // sem barra final: evita param colado em path duplicado e 301 no destino
 export const APP_URL: string = rawAppUrl.replace(/\/+$/, '');
@@ -60,14 +60,47 @@ export const BONUS_THRESHOLD = num(import.meta.env.PUBLIC_BONUS_THRESHOLD, 5);
  */
 export const BONUS_REPEATS = (import.meta.env.PUBLIC_BONUS_REPEATS ?? 'false') !== 'false';
 
-/** Fechamento semanal (pagamento por Pix) — espelha closing_weekday/closing_hour */
-export const CLOSING_LABEL = 'toda sexta, às 18h';
+/**
+ * Fechamento semanal (pagamento por Pix) — espelha closing_weekday/closing_hour
+ * do finance/config.py. Via .env para não dessincronizar com a API (promessa de
+ * dinheiro: se a hora mudar lá, basta mudar PUBLIC_CLOSING_LABEL aqui).
+ */
+export const CLOSING_LABEL: string =
+  import.meta.env.PUBLIC_CLOSING_LABEL ?? 'toda sexta, às 18h';
+
+/* ----------------------------------------------------------------------------
+ * Identificação legal do fornecedor (CDC art. 31 / LGPD art. 9).
+ * Via .env: o CNPJ NUNCA deve ser hardcoded — placeholder em produção é
+ * bloqueador jurídico. Sem PUBLIC_CNPJ, o rodapé omite a linha do CNPJ em vez
+ * de exibir um número falso (pior do que ausência).
+ * -------------------------------------------------------------------------- */
+/** Razão/nome jurídico da PJ que opera o programa */
+export const LEGAL_NAME: string = import.meta.env.PUBLIC_LEGAL_NAME ?? 'V7M Empresarial';
+/** CNPJ real da PJ (vazio = não renderiza; não inventar placeholder) */
+export const CNPJ: string = (import.meta.env.PUBLIC_CNPJ ?? '48.811.016/0001-00').trim();
+/** E-mail de contato (SAC) */
+export const CONTACT_EMAIL: string =
+  import.meta.env.PUBLIC_CONTACT_EMAIL ?? 'contato@v7m.org';
+/** WhatsApp em E.164 só dígitos (ex.: 5511999999999); vazio = não renderiza */
+export const CONTACT_WHATSAPP: string = (
+  import.meta.env.PUBLIC_CONTACT_WHATSAPP ?? '5511920062177'
+).replace(/\D/g, '');
 
 /**
  * Marcas das instituições do polo (HUB_BRANDS). Vazio por decisão de projeto:
  * exibir logo/nome é pendência jurídica/comercial. Preencher libera o bloco.
  */
 export const HUB_BRANDS: string[] = [];
+
+/* ----------------------------------------------------------------------------
+ * Produto indicado — o curso que o promotor divulga (supletivo.net.br).
+ * Fonte única da copy do produto. Fatos espelham supletivo.net.br.
+ * NÃO é linkado na UI de propósito: mantém o promotor no funil de recrutamento.
+ * Claim do certificado segue exatamente o site de origem (instituição parceira
+ * credenciada / LDB) — não overclaim "certificado do MEC".
+ * -------------------------------------------------------------------------- */
+/** Nome curto do produto, usado na copy */
+export const PRODUCT_NAME = 'supletivo da V7M';
 
 /* ----------------------------------------------------------------------------
  * Helpers de cálculo (usados no server p/ fallback e no client p/ a calculadora)

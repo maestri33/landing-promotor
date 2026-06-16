@@ -48,12 +48,17 @@ Copie `.env.example` para `.env`:
 
 | Variável                   | O que controla                                            | Default |
 | -------------------------- | --------------------------------------------------------- | ------- |
-| `PUBLIC_APP_URL`           | Destino do CTA (cadastro do candidato a promotor)         | dev `http://localhost:3000` · build `https://candidato.v7m.org` |
-| `SITE`                     | Domínio canônico (canonical, OG, sitemap, robots)         | `https://trabalhar.v7m.org` |
+| `PUBLIC_APP_URL`           | Destino do CTA (cadastro do candidato a promotor)         | dev `http://localhost:3000` · build `https://app.v7m.org` |
+| `SITE`                     | Domínio canônico (canonical, OG, sitemap, robots)         | `https://job.v7m.org` |
 | `PUBLIC_COMMISSION_DIRECT` | Comissão por matrícula paga (R$)                          | `100` |
 | `PUBLIC_BONUS_FLAT`        | Bônus por bloco de indicações pagas na semana (R$)        | `500` |
 | `PUBLIC_BONUS_THRESHOLD`   | Tamanho do bloco que destrava o bônus                     | `5` |
 | `PUBLIC_BONUS_REPEATS`     | `false` = degrau único semanal; `true` = a cada bloco     | `false` |
+| `PUBLIC_CLOSING_LABEL`     | Texto do fechamento semanal do Pix                        | `toda sexta, às 18h` |
+| `PUBLIC_LEGAL_NAME`        | Razão/nome da PJ no rodapé                                 | `V7M Empresarial` |
+| `PUBLIC_CNPJ`              | CNPJ exibido no rodapé (vazio = oculta)                   | `48.811.016/0001-00` |
+| `PUBLIC_CONTACT_EMAIL`     | E-mail de contato (SAC)                                   | `contato@v7m.org` |
+| `PUBLIC_CONTACT_WHATSAPP`  | WhatsApp do SAC, só dígitos com DDI/DDD (vazio = oculta)  | `5511920062177` |
 
 Os valores de comissão são lidos em `src/config.ts` (fonte única) e usados na
 seção "Quanto dá pra ganhar", na calculadora, no FAQ, nos termos e no schema.

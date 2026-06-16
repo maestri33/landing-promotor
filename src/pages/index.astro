@@ -4,6 +4,7 @@ import ProgressBar from '../components/ProgressBar.astro';
 import Header from '../components/Header.astro';
 import Hero from '../components/Hero.astro';
 import Steps from '../components/Steps.astro';
+import Product from '../components/Product.astro';
 import Earnings from '../components/Earnings.astro';
 import Path from '../components/Path.astro';
 import Requirements from '../components/Requirements.astro';
@@ -17,7 +18,7 @@ import { BRAND, PROGRAM, brl, COMMISSION_DIRECT } from '../config';
 
 const title = 'Seja Promotor — indique matrículas e ganhe por Pix | V7M';
 const description =
-  `Ganhe ${brl(COMMISSION_DIRECT)} por matrícula paga, mais bônus por volume, recebidos por Pix toda semana. ` +
+  `Indique o supletivo da V7M (curso online para concluir o ensino fundamental ou o médio) e ganhe ${brl(COMMISSION_DIRECT)} por matrícula paga, mais bônus por volume, no seu Pix toda semana. ` +
   'Grátis pra entrar, sem estoque e sem vender nada. Cadastre-se pelo celular.';
 
 const site = Astro.site!;
@@ -61,6 +62,7 @@ const schema = {
   <main id="conteudo">
     <Hero />
     <Steps />
+    <Product />
     <Earnings />
     <Path />
     <Requirements />

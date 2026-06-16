@@ -120,6 +120,7 @@ const fallbackRows = [1, BONUS_THRESHOLD, BONUS_THRESHOLD * 2, BONUS_THRESHOLD *
         </tbody>
       </table>
       <p class="calc-note">
+        Mesma conta da calculadora: os valores já somam o bônus da semana.
         Comissão de {brl(COMMISSION_DIRECT)} por matrícula paga + {brl(BONUS_FLAT)}
         {' '}{bonusRule}. Não é promessa de renda.
       </p>
@@ -220,7 +221,13 @@ const fallbackRows = [1, BONUS_THRESHOLD, BONUS_THRESHOLD * 2, BONUS_THRESHOLD *
     color: var(--yellow);
   }
 
+  /* mobile: empilha em coluna (model → + → model) para o "+" virar operação
+     aritmética centralizada, não um botão solto flutuando à direita do card */
   @media (max-width: 560px) {
+    .earn-models {
+      flex-direction: column;
+      align-items: stretch;
+    }
     .model-plus {
       transform: rotate(90deg);
     }

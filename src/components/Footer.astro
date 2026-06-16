@@ -3,9 +3,26 @@
  * Rodapé: logo, aviso de modelo (autônomo, sem vínculo), links legais, LGPD.
  */
 import Logo from './Logo.astro';
-import { CLOSING_LABEL } from '../config';
+import {
+  CLOSING_LABEL,
+  LEGAL_NAME,
+  CNPJ,
+  CONTACT_EMAIL,
+  CONTACT_WHATSAPP,
+} from '../config';
 
 const year = new Date().getFullYear();
+
+// linha de identificação do fornecedor: só inclui o que existe de fato.
+// CNPJ ausente NÃO vira placeholder — some até a env real ser preenchida.
+const waHref = CONTACT_WHATSAPP ? `https://wa.me/${CONTACT_WHATSAPP}` : null;
+const waLabel = CONTACT_WHATSAPP
+  ? CONTACT_WHATSAPP.replace(/^55(\d{2})(\d{4,5})(\d{4})$/, '($1) $2-$3')
+  : null;
+const legalParts = [
+  `${LEGAL_NAME} · Programa de Promotores`,
+  CNPJ ? `CNPJ ${CNPJ}` : null,
+].filter(Boolean);
 ---
 
 <footer class="footer on-dark">
@@ -45,7 +62,16 @@ const year = new Date().getFullYear();
     </div>
 
     <div class="footer-legal">
-      <p>V7M · Programa de Promotores · CNPJ 00.000.000/0001-00 · contato@v7m.org</p>
+      <p class="footer-id">
+        {legalParts.join(' · ')} ·{' '}
+        <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
+        {waHref && (
+          <>
+            {' · '}
+            <a href={waHref} rel="noopener" target="_blank">WhatsApp {waLabel}</a>
+          </>
+        )}
+      </p>
       <p>
         O Programa de Promotores remunera por <strong>indicação de matrículas
         pagas</strong>, com pagamento por Pix {CLOSING_LABEL}. A participação é
@@ -232,6 +258,25 @@ const year = new Date().getFullYear();
 
   .footer-legal strong {
     color: var(--paper);
+  }
+
+  .footer-id a {
+    color: var(--paper);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    /* área de toque sem inflar layout */
+    display: inline-block;
+    padding-block: 0.3rem;
+    margin-block: -0.3rem;
+  }
+
+  .footer-id a:hover {
+    color: var(--yellow);
+  }
+
+  .footer-id a:focus-visible {
+    outline: 2px solid var(--yellow);
+    outline-offset: 2px;
   }
 
   .footer-copy {

@@ -20,6 +20,14 @@ export const faq: FaqItem[] = [
     a: 'Não. Entrar é de graça e você nunca paga nada para ser promotor. Quem se inscreve são as pessoas que você indica — e é a matrícula delas que gera a sua comissão.',
   },
   {
+    q: 'Que curso a pessoa compra com o meu link?',
+    a: 'O supletivo da V7M (EJA): um curso online para concluir o ensino fundamental ou o médio e tirar o certificado, válido em todo o Brasil, emitido por instituição parceira credenciada e amparado pela LDB (Lei nº 9.394/96). A pessoa estuda pelo celular, no ritmo dela. Ou seja: você indica um produto de verdade, não "só um link".',
+  },
+  {
+    q: 'Isso não é pirâmide?',
+    a: 'Não. Pirâmide não tem produto e paga por recrutar gente. Aqui é o contrário: existe um curso real (o supletivo) que a pessoa estuda e conclui, e você ganha por indicar a matrícula dele — nunca por trazer outros promotores.',
+  },
+  {
     q: 'Como eu recebo?',
     a: `Por Pix, ${CLOSING_LABEL}, de forma automática. O fechamento da semana soma suas comissões e o valor cai direto na sua chave Pix — a mesma que você cadastra e que é validada no banco.`,
   },
@@ -48,8 +56,16 @@ export const faq: FaqItem[] = [
     a: 'Para garantir que o dinheiro vai para a pessoa certa e manter o programa sério. Sua chave Pix é validada de verdade no banco (precisa estar no seu CPF), o documento e a selfie confirmam que é você mesmo.',
   },
   {
+    q: 'O curso vale a pena para quem se matricula?',
+    a: 'Vale para quem precisa terminar os estudos: é online, a pessoa estuda pelo celular no próprio ritmo (só a prova final é presencial), e o certificado serve para faculdade, concurso, tirar a CNH e comprovar escolaridade. Você indica com tranquilidade porque a pessoa também sai ganhando.',
+  },
+  {
+    q: 'Funciona para qualquer pessoa?',
+    a: 'Funciona melhor para quem conhece gente que quer voltar a estudar ou terminar o ensino médio. Se ninguém da sua rede tem esse perfil, o ganho pode ser baixo — não é renda garantida, é comissão por matrícula paga.',
+  },
+  {
     q: 'Quanto tempo leva para ser aprovado?',
-    a: 'É rápido, mas tem um filtro: cadastro pelo celular, um treino curto online (com correção automática) e uma entrevista rápida com o coordenador do polo. Aprovado, seu link é liberado na hora.',
+    a: 'É rápido, mas tem um filtro: cadastro pelo celular, um treininho rápido online (com correção na hora) e uma conversa com o coordenador do polo. Aprovado, seu link é liberado na hora.',
   },
   {
     q: 'Posso perder o cadastro?',

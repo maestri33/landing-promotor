@@ -24,7 +24,8 @@ export default function seoFiles() {
           return;
         }
         const base = site.endsWith('/') ? site : `${site}/`;
-        const lastmod = new Date().toISOString().slice(0, 10);
+        // ISO 8601 completo com offset (W3C Datetime). `Z` ≡ `+00:00`.
+        const lastmod = new Date().toISOString();
 
         const urls = pages
           .filter((p) => !EXCLUDE.has(p.pathname))

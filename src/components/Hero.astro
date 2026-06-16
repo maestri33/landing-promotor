@@ -8,7 +8,7 @@
 import CtaButton from './CtaButton.astro';
 import PixPhone from './PixPhone.astro';
 import Marquee from './Marquee.astro';
-import { brl, COMMISSION_DIRECT } from '../config';
+import { brl, COMMISSION_DIRECT, PRODUCT_NAME } from '../config';
 
 const LINE_1 = 'Indique.';
 const LINE_2 = 'Receba.';
@@ -73,8 +73,9 @@ const valor = brl(COMMISSION_DIRECT);
     </h1>
 
     <p class="hero-sub anim-up" style="--i: 3">
-      Sem estoque, sem mensalidade, sem vender nada. Você indica, a pessoa se
-      matricula, <strong>você ganha</strong>.
+      Indique o {PRODUCT_NAME} pelo celular, no seu tempo — o curso pra concluir
+      o ensino fundamental ou o médio. A pessoa se matricula e
+      <strong>você ganha por matrícula paga</strong>. Sem estoque, sem vender nada.
     </p>
 
     <ul class="hero-chips anim-up" style="--i: 4">
