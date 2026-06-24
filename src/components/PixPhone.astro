@@ -3,6 +3,10 @@
  * Peça do hero: celular mostrando o ciclo real do promotor —
  * compartilha o link → cai um Pix. 100% SVG + CSS (transform/opacity,
  * compositor friendly), sem JS. Reduced-motion: estado de descanso estático.
+ *
+ * Saldo da semana = 2 × comissão direta (bate com os 2 toasts visíveis:
+ * cada um "Pix recebido + R$ X" representa uma matrícula paga. Antes era
+ * R$ 300 hardcoded — destoava dos 2 toasts que somavam só R$ 200.)
  */
 import { brl, COMMISSION_DIRECT } from '../config';
 const valor = brl(COMMISSION_DIRECT);
@@ -53,7 +57,7 @@ const valor = brl(COMMISSION_DIRECT);
     <!-- saldo da semana -->
     <g class="pp-fade" style="--i:2">
       <text x="80" y="206" class="pp-label">SALDO DA SEMANA</text>
-      <text x="80" y="246" class="pp-balance">R$ <tspan class="pp-balance-n">300</tspan></text>
+      <text x="80" y="246" class="pp-balance">R$ <tspan class="pp-balance-n">{COMMISSION_DIRECT * 2}</tspan></text>
       <text x="80" y="272" class="pp-sub">cai no seu Pix na sexta</text>
     </g>
 

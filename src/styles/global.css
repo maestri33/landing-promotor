@@ -252,6 +252,24 @@ strong {
   outline-color: var(--yellow);
 }
 
+/* Quando o sticky CTA aparece (só mobile, <900px), adiciona respiro no
+   final do body pra que o último item de listas longas (FAQ, etc.)
+   não fique escondido atrás da barra. Sem JS o sticky-cta também fica
+   "always visible" mas só no mobile e os 3.6rem são toleráveis. */
+:global(html.js) body {
+  transition: padding-bottom 0.2s var(--ease-out);
+}
+
+:global(html.js) body.has-sticky-cta {
+  padding-bottom: 4.6rem; /* altura do sticky + safe-area do iOS */
+}
+
+@media (min-width: 900px) {
+  :global(html.js) body.has-sticky-cta {
+    padding-bottom: 0;
+  }
+}
+
 /* ============================================================
    CTA (botão principal)
    ============================================================ */

@@ -48,7 +48,16 @@
   --text-price: clamp(3.2rem, 2rem + 5.6vw, 6rem);
 
   /* Ritmo */
-  --space-section: clamp(4.5rem, 3rem + 6vw, 9rem);
+  /* Reduzido de clamp(4.5rem, 3rem + 6vw, 9rem) — 9rem top+bottom por seção
+     somava ~1.5k px de "moat" vazio entre seções no desktop. Sem perder
+     respiro, agora cabe mais conteúdo por scroll. */
+  --space-section: clamp(3.5rem, 2rem + 5vw, 7rem);
+  /* No mobile, ainda mais enxuto: 6.4rem total por seção, não 9rem. */
+  @media (max-width: 720px) {
+    :root {
+      --space-section: clamp(2.75rem, 2rem + 3vw, 3.75rem);
+    }
+  }
   --container: 68rem;
   --container-narrow: 46rem;
   --gutter: clamp(1.25rem, 4vw, 2.5rem);

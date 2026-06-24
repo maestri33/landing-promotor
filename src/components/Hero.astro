@@ -99,6 +99,13 @@ const valor = brl(COMMISSION_DIRECT);
       <p class="microcopy">
         <strong>{valor} por matrícula paga</strong> · você recebe por Pix toda semana
       </p>
+      <p class="hero-time">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"></circle>
+          <path d="M12 7v5l3 2" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+        </svg>
+        <span>Cadastro em <strong>1 minuto</strong> pelo celular · sem senha</span>
+      </p>
     </div>
   </div>
 
@@ -427,6 +434,32 @@ const valor = brl(COMMISSION_DIRECT);
 
   .hero .microcopy strong {
     color: var(--yellow);
+  }
+
+  .hero-time {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    margin-top: 0.6rem;
+    padding: 0.5em 0.95em;
+    border: 1px solid rgb(255 255 255 / 0.14);
+    border-radius: 999px;
+    background: rgb(255 255 255 / 0.04);
+    font-size: 0.84rem;
+    color: var(--muted-on-dark);
+    backdrop-filter: blur(4px);
+  }
+
+  .hero-time strong {
+    color: var(--paper);
+    font-weight: 700;
+  }
+
+  .hero-time svg {
+    width: 1em;
+    height: 1em;
+    color: var(--yellow);
+    flex: none;
   }
 
   .scroll-cue {

@@ -59,6 +59,10 @@ const fallbackRows = [1, BONUS_THRESHOLD, BONUS_THRESHOLD * 2, BONUS_THRESHOLD *
       <label class="calc-q" for="calc-range">Quantas matrículas pagas por semana?</label>
 
       <div class="calc-rangewrap">
+        <span class="calc-hint" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Arraste pra simular
+        </span>
         <input
           id="calc-range"
           class="calc-range"
@@ -71,6 +75,20 @@ const fallbackRows = [1, BONUS_THRESHOLD, BONUS_THRESHOLD * 2, BONUS_THRESHOLD *
           aria-label="Matrículas pagas por semana"
         />
         <div class="calc-ticks" aria-hidden="true"><span>1</span><span>10</span><span>20</span></div>
+      </div>
+
+      <div class="calc-presets" role="group" aria-label="Valores rápidos de matrículas por semana">
+        {[1, 5, 10, 20].map((n) => (
+          <button
+            type="button"
+            class="calc-preset"
+            data-calc-preset={n}
+            aria-pressed={n === DEFAULT_N ? 'true' : 'false'}
+          >
+            {n}
+          </button>
+        ))}
+        <span class="calc-preset-label" aria-hidden="true">por semana</span>
       </div>
 
       <p class="calc-paidline">
@@ -89,7 +107,13 @@ const fallbackRows = [1, BONUS_THRESHOLD, BONUS_THRESHOLD * 2, BONUS_THRESHOLD *
           <dd data-calc-direct>{brl(start.direct)}</dd>
         </div>
         <div class="calc-bonus-row on" data-calc-bonus-row>
-          <dt>Bônus de volume</dt>
+          <dt>
+            Bônus de volume
+            <span class="calc-bonus-badge" data-calc-bonus-badge aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Desbloqueado
+            </span>
+          </dt>
           <dd data-calc-bonus>{brl(start.bonus)}</dd>
         </div>
       </dl>
@@ -272,6 +296,37 @@ const fallbackRows = [1, BONUS_THRESHOLD, BONUS_THRESHOLD * 2, BONUS_THRESHOLD *
 
   .calc-rangewrap {
     margin-bottom: 0.6rem;
+    position: relative;
+  }
+
+  .calc-hint {
+    position: absolute;
+    top: -0.05rem;
+    right: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.32em 0.7em;
+    border: 1px solid rgb(217 177 90 / 0.35);
+    border-radius: 999px;
+    background: rgb(217 177 90 / 0.08);
+    color: var(--yellow);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    pointer-events: none;
+  }
+
+  .calc-hint svg {
+    width: 0.95em;
+    height: 0.95em;
+  }
+
+  /* some assim que o usuário mexe — não fica mais pedindo atenção */
+  :global(html.js) .calc.touched .calc-hint {
+    opacity: 0;
+    transition: opacity 0.4s var(--ease-out);
   }
 
   .calc-range {
@@ -319,6 +374,53 @@ const fallbackRows = [1, BONUS_THRESHOLD, BONUS_THRESHOLD * 2, BONUS_THRESHOLD *
     font-size: 0.72rem;
     color: var(--muted-on-dark);
     margin-top: 0.4rem;
+  }
+
+  .calc-presets {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    margin-top: 0.9rem;
+  }
+
+  .calc-preset {
+    appearance: none;
+    border: 1px solid rgb(255 255 255 / 0.18);
+    background: rgb(255 255 255 / 0.04);
+    color: var(--paper);
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 0.92rem;
+    padding: 0.5em 1.05em;
+    border-radius: 999px;
+    cursor: pointer;
+    min-width: 3rem;
+    transition:
+      background 0.18s var(--ease-out),
+      border-color 0.18s var(--ease-out),
+      color 0.18s var(--ease-out);
+  }
+
+  .calc-preset:hover {
+    border-color: var(--yellow);
+  }
+
+  .calc-preset[aria-pressed='true'] {
+    background: var(--yellow);
+    border-color: var(--yellow);
+    color: var(--ink);
+  }
+
+  .calc-preset:focus-visible {
+    outline: 3px solid var(--yellow);
+    outline-offset: 3px;
+  }
+
+  .calc-preset-label {
+    margin-left: 0.2rem;
+    font-size: 0.82rem;
+    color: var(--muted-on-dark);
   }
 
   .calc-paidline {
@@ -400,6 +502,74 @@ const fallbackRows = [1, BONUS_THRESHOLD, BONUS_THRESHOLD * 2, BONUS_THRESHOLD *
 
   .calc-bonus-row.on dd {
     color: var(--yellow);
+  }
+
+  /* badge "Desbloqueado" — só visível com .on; some quando o bônus zera */
+  .calc-bonus-badge {
+    display: none;
+    align-items: center;
+    gap: 0.25rem;
+    margin-left: 0.5rem;
+    padding: 0.15em 0.55em;
+    border: 1px solid rgb(217 177 90 / 0.55);
+    border-radius: 999px;
+    background: rgb(217 177 90 / 0.14);
+    color: var(--gold-soft);
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    vertical-align: middle;
+  }
+
+  .calc-bonus-row.on .calc-bonus-badge {
+    display: inline-flex;
+  }
+
+  .calc-bonus-badge svg {
+    width: 0.85em;
+    height: 0.85em;
+  }
+
+  /* pulse único quando o bônus destrava (JS dispara .just-unlocked por 1.2s) */
+  @media (prefers-reduced-motion: no-preference) {
+    .calc-bonus-row.on.just-unlocked dd {
+      animation: bonus-pulse 1.2s var(--ease-out);
+    }
+
+    .calc-bonus-row.on.just-unlocked .calc-bonus-badge {
+      animation: bonus-badge-pop 1.2s var(--ease-out);
+    }
+  }
+
+  @keyframes bonus-pulse {
+    0% {
+      transform: scale(1);
+    }
+    35% {
+      transform: scale(1.18);
+      text-shadow: 0 0 16px rgb(217 177 90 / 0.6);
+    }
+    100% {
+      transform: scale(1);
+      text-shadow: none;
+    }
+  }
+
+  @keyframes bonus-badge-pop {
+    0% {
+      transform: scale(0.6);
+      opacity: 0;
+    }
+    40% {
+      transform: scale(1.1);
+      opacity: 1;
+    }
+    70%,
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
   }
 
   .calc-note {

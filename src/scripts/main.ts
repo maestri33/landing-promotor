@@ -33,6 +33,35 @@ document.querySelectorAll<HTMLDetailsElement>('details[data-faq]').forEach((deta
   });
 });
 
+/* ---------- FAQ: filtro por categoria (chips) ----------
+ * Sem JS, todos os 14 itens já renderizam (filtro é display:none até JS).
+ * Com JS: clique num chip filtra; 'Todas' reseta. Mantém estado em dataset. */
+const faqList = document.querySelector<HTMLElement>('.faq-list');
+const faqChips = document.querySelectorAll<HTMLButtonElement>('.faq-chip');
+if (faqList && faqChips.length > 0) {
+  const setCat = (cat: string): void => {
+    if (cat === 'all') delete faqList.dataset.activeCat;
+    else faqList.dataset.activeCat = cat;
+    faqChips.forEach((c) => {
+      const on = (c.dataset.faqFilter ?? 'all') === cat;
+      c.classList.toggle('is-active', on);
+      c.setAttribute('aria-selected', on ? 'true' : 'false');
+    });
+    // data-reveal deixa itens fora do fold em opacity:0; depois de filtrar,
+    // o item pode subir pra cima do fold mas continuar invisível. Forçamos
+    // .in-view em todos os que sobrevivem ao filtro.
+    faqList.querySelectorAll<HTMLElement>('.faq-item').forEach((el) => {
+      if (cat === 'all' || el.getAttribute('data-cat') === cat) {
+        el.classList.add('in-view');
+      }
+    });
+  };
+  faqChips.forEach((c) =>
+    c.addEventListener('click', () => setCat(c.dataset.faqFilter ?? 'all'))
+  );
+  document.querySelector<HTMLButtonElement>('[data-faq-reset]')?.addEventListener('click', () => setCat('all'));
+}
+
 /* ---------- section_view: funil por seção ---------- */
 const sections = document.querySelectorAll<HTMLElement>('[data-section]');
 if (sections.length > 0 && 'IntersectionObserver' in window) {
@@ -83,6 +112,7 @@ checkDepth();
  * Sem JS: a tabela estática (renderizada no server) já responde. */
 const calcRange = document.querySelector<HTMLInputElement>('[data-calc-range]');
 if (calcRange) {
+  const calcRoot = calcRange.closest<HTMLElement>('.calc');
   const out = {
     paid: document.querySelector<HTMLElement>('[data-calc-paid]'),
     total: document.querySelector<HTMLElement>('[data-calc-total]'),
@@ -104,12 +134,41 @@ if (calcRange) {
   };
   calcRange.addEventListener('input', () => {
     render();
+    // o usuário descobriu que o slider é interativo: o hint pode sair
+    calcRoot?.classList.add('touched');
+    syncPresetState();
+    // celebrar o instante em que o bônus destrava (passar de 4 → 5)
+    if (!REDUCED && out.bonusRow?.classList.contains('on')) {
+      out.bonusRow.classList.remove('just-unlocked');
+      // reflow pra resetar a animação
+      void out.bonusRow.offsetWidth;
+      out.bonusRow.classList.add('just-unlocked');
+    }
     if (!calcTracked) {
       calcTracked = true;
       track('calc_use', {});
     }
   });
+
+  // presets: clicar num botão move o slider e dispara o input handler
+  const presetBtns = calcRoot?.querySelectorAll<HTMLButtonElement>('[data-calc-preset]');
+  const syncPresetState = (): void => {
+    const current = Number(calcRange.value);
+    presetBtns?.forEach((b) => {
+      const on = Number(b.dataset.calcPreset) === current;
+      b.setAttribute('aria-pressed', on ? 'true' : 'false');
+    });
+  };
+  presetBtns?.forEach((b) => {
+    b.addEventListener('click', () => {
+      calcRange.value = b.dataset.calcPreset ?? calcRange.value;
+      // dispara o mesmo handler do input para re-renderizar + tracking
+      calcRange.dispatchEvent(new Event('input', { bubbles: true }));
+    });
+  });
+
   render();
+  syncPresetState();
 }
 
 /* ---------- Reveals por scroll (Intersection Observer) ---------- */
@@ -185,7 +244,10 @@ if (sticky && 'IntersectionObserver' in window) {
   let pastHero = !hero; // páginas sem hero: sticky liberado desde o topo
   const ctasOnScreen = new Set<Element>();
   const updateSticky = (): void => {
-    sticky.classList.toggle('visible', pastHero && ctasOnScreen.size === 0);
+    const show = pastHero && ctasOnScreen.size === 0;
+    sticky.classList.toggle('visible', show);
+    // sincroniza o body pra criar espaço embaixo (só mobile, ver CSS)
+    document.body.classList.toggle('has-sticky-cta', show && window.matchMedia('(max-width: 899px)').matches);
   };
 
   if (hero) {
@@ -212,6 +274,7 @@ if (sticky && 'IntersectionObserver' in window) {
   updateSticky();
 } else {
   sticky?.classList.add('visible');
+  document.body.classList.add('has-sticky-cta');
 }
 
 /* ---------- Barra de progresso de leitura ---------- */
@@ -235,4 +298,31 @@ if (bar) {
     { passive: true }
   );
   update();
+}
+
+/* ---------- Voltar ao topo ----------
+ * Aparece quando o usuário passou do hero e ainda tem bastante página
+ * pela frente (some perto do rodapé pra não competir com o footer). */
+const btt = document.querySelector<HTMLButtonElement>('[data-btt]');
+if (btt) {
+  btt.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: REDUCED ? 'auto' : 'smooth' });
+  });
+  if ('IntersectionObserver' in window) {
+    const heroEl = document.querySelector('#hero');
+    if (heroEl) {
+      new IntersectionObserver(
+        ([entry]) => {
+          // visível = voltou pro hero; some o botão
+          if (entry.isIntersecting) btt.classList.remove('is-visible');
+          else btt.classList.add('is-visible');
+        },
+        { rootMargin: '-40% 0px 0px 0px' }
+      ).observe(heroEl);
+    } else {
+      btt.classList.add('is-visible');
+    }
+  } else {
+    btt.classList.add('is-visible');
+  }
 }
