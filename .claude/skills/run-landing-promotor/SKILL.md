@@ -141,8 +141,54 @@ driver instead.
 ## Test
 
 ```bash
-npm test               # vitest — attribution rules (hub→ref)
+npm test               # vitest — attribution rules (hub→ref), ~500ms
 npm run build && npm run test:e2e   # Playwright — needs `npx playwright install chromium` once
+```
+
+`npm run test:e2e` covers 9 tests: hub→ref attribution (3), dataLayer events (2),
+calculator (1), and axe a11y on `/`, `/termos/`, `/privacidade/` (3). Last verified
+pass: **9/9 in 8.8s**.
+
+## Lighthouse (full verification pass)
+
+The project ships with `.lighthouserc.json` — mobile preset, perf ≥0.9, a11y ≥0.95,
+SEO ≥0.95, total transfer ≤1 MB. Verified on this iteration:
+
+| Category    | Target | Desktop | Mobile |
+| ----------- | ------ | ------- | ------ |
+| Performance | ≥0.9   | **1.0** | **1.0** |
+| Accessibility | ≥0.95 | **1.0** | **1.0** |
+| SEO         | ≥0.95  | **1.0** | **1.0** |
+
+Mobile total transfer: **95.7 KB** (66 KB fonts, 25 KB document, 3.1 KB script,
+0 KB images, 0 KB third-party).
+
+One-shot CLI run (no install — `npx` fetches lighthouse 12):
+
+```bash
+# Desktop
+CHROME=/usr/bin/chromium \
+  npx -y lighthouse@12 http://127.0.0.1:4321/ \
+    --preset=desktop \
+    --only-categories=performance,accessibility,seo \
+    --chrome-path=/usr/bin/chromium \
+    --chrome-flags="--headless=new --no-sandbox --disable-dev-shm-usage" \
+    --output=json --output=html --output-path=/tmp/lh-desktop --quiet
+
+# Mobile
+CHROME=/usr/bin/chromium \
+  npx -y lighthouse@12 http://127.0.0.1:4321/ \
+    --form-factor=mobile \
+    --only-categories=performance,accessibility,seo \
+    --chrome-path=/usr/bin/chromium \
+    --chrome-flags="--headless=new --no-sandbox --disable-dev-shm-usage" \
+    --output=json --output=html --output-path=/tmp/lh-mobile --quiet
+```
+
+Or use the project's own config (CI default, runs 3 times and asserts):
+
+```bash
+npx -y @lhci/cli@0.14.x autorun
 ```
 
 ## Gotchas
