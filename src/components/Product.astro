@@ -187,6 +187,11 @@ const feats = [
       flex-direction: column;
       align-items: stretch;
     }
+    /* em coluna, flex-basis vira ALTURA — sem isto cada card ganha 15rem
+       de altura mínima e estica com um vazio enorme embaixo do texto */
+    .win-side {
+      flex-basis: auto;
+    }
     /* seta aponta pra baixo no empilhamento (causa em cima → efeito embaixo) */
     .win-arrow {
       transform: rotate(90deg);
