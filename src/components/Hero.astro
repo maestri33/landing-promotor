@@ -1,7 +1,7 @@
 ---
 /**
- * Seção 1 — O gancho.
- * "Indique." vazado (o gesto) → "Receba." sólido com swoosh (o resultado).
+ * Seção 1 — O gancho (ganha-ganha).
+ * "Mude vidas." vazado (o propósito) → "Receba." sólido com swoosh (a renda).
  * Glow + grain + chips + marquee + celular mostrando o ciclo (link → Pix).
  * Tudo CSS; roda sem JS; some em reduced-motion.
  */
@@ -10,9 +10,9 @@ import PixPhone from './PixPhone.astro';
 import Marquee from './Marquee.astro';
 import { brl, COMMISSION_DIRECT, PRODUCT_NAME } from '../config';
 
-const LINE_1 = 'Indique.';
+const LINE_1 = 'Mude vidas.';
 const LINE_2 = 'Receba.';
-const chips = ['Grátis pra entrar', 'Pix toda semana', 'Tudo pelo celular'];
+const chips = ['Você muda uma vida', 'E ganha por isso', 'Tudo pelo celular'];
 const valor = brl(COMMISSION_DIRECT);
 ---
 
@@ -73,9 +73,10 @@ const valor = brl(COMMISSION_DIRECT);
     </h1>
 
     <p class="hero-sub anim-up" style="--i: 3">
-      Indique o {PRODUCT_NAME} pelo celular, no seu tempo — o curso pra concluir
-      o ensino fundamental ou o médio. A pessoa se matricula e
-      <strong>você ganha por matrícula paga</strong>. Sem estoque, sem vender nada.
+      Indique o {PRODUCT_NAME} pelo celular e ajude alguém a finalmente
+      <strong>concluir os estudos</strong> — uma conquista que muda a vida da
+      pessoa. Quando a matrícula é paga, <strong>você também ganha</strong>.
+      Sem estoque, sem vender nada.
     </p>
 
     <ul class="hero-chips anim-up" style="--i: 4">
@@ -122,7 +123,7 @@ const valor = brl(COMMISSION_DIRECT);
 
   <div class="hero-marquee">
     <Marquee
-      items={['Indique matrículas', 'Receba por Pix', 'Sem vender nada', 'Grátis pra entrar', 'Trabalhe pelo celular', 'Pagamento toda semana']}
+      items={['Ajude alguém a se formar', 'Receba por Pix', 'Sem vender nada', 'Grátis pra entrar', 'Mude uma vida', 'E ganhe por isso']}
       variant="yellow"
       speed={30}
     />
