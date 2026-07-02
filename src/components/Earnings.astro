@@ -21,7 +21,7 @@ const start = weeklyEarnings(DEFAULT_N);
 
 const bonusRule = BONUS_REPEATS
   ? `a cada ${BONUS_THRESHOLD} pagas na semana`
-  : `ao bater ${BONUS_THRESHOLD} pagas na semana (1x por semana)`;
+  : `ao bater ${BONUS_THRESHOLD} pagas na semana (1x)`;
 
 // Tabela de fallback (sem JS) — mesmos números da calculadora
 const fallbackRows = [1, BONUS_THRESHOLD, BONUS_THRESHOLD * 2, BONUS_THRESHOLD * 3].map((n) => ({
@@ -252,6 +252,11 @@ const fallbackRows = [1, BONUS_THRESHOLD, BONUS_THRESHOLD * 2, BONUS_THRESHOLD *
     .earn-models {
       flex-direction: column;
       align-items: stretch;
+    }
+    /* em coluna, flex-basis vira ALTURA mínima — sem isto cada card ganha
+       14rem de altura e estica com vazio embaixo do valor */
+    .model {
+      flex-basis: auto;
     }
     .model-plus {
       transform: rotate(90deg);

@@ -184,6 +184,15 @@ strong {
   }
 }
 
+/* No mobile o hero cai pra ~48px: um stroke de 2.5px sobre Archivo Black
+   (já pesadíssima) entope os contra-formas das letras. Afina o traço pra
+   manter o vazado limpo e legível. Desktop fica como está. */
+@media (max-width: 720px) {
+  .ghost {
+    -webkit-text-stroke-width: 1.8px;
+  }
+}
+
 /* Parallax leve via CSS scroll-driven animations (progressive enhancement) */
 @supports (animation-timeline: view()) {
   @media (prefers-reduced-motion: no-preference) {
