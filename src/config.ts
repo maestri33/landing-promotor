@@ -77,7 +77,7 @@ export const CLOSING_LABEL: string =
 /** Razão/nome jurídico da PJ que opera o programa */
 export const LEGAL_NAME: string = import.meta.env.PUBLIC_LEGAL_NAME ?? 'V7M Empresarial';
 /** CNPJ real da PJ (vazio = não renderiza; não inventar placeholder) */
-export const CNPJ: string = (import.meta.env.PUBLIC_CNPJ ?? '48.811.016/0001-00').trim();
+export const CNPJ: string = (import.meta.env.PUBLIC_CNPJ ?? '').trim();
 /** E-mail de contato (SAC) */
 export const CONTACT_EMAIL: string =
   import.meta.env.PUBLIC_CONTACT_EMAIL ?? 'contato@v7m.org';
