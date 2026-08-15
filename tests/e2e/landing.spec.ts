@@ -69,9 +69,11 @@ test.describe('eventos no dataLayer', () => {
       const doc = document.documentElement;
       for (let y = 0; y <= doc.scrollHeight; y += 400) {
         window.scrollTo({ top: y, behavior: 'instant' });
+        window.dispatchEvent(new Event('scroll'));
         await new Promise((r) => setTimeout(r, 30));
       }
       window.scrollTo({ top: doc.scrollHeight, behavior: 'instant' });
+      window.dispatchEvent(new Event('scroll'));
     });
     await page.waitForTimeout(400);
 
@@ -107,11 +109,27 @@ test('calculadora: mover o slider atualiza o total e dispara calc_use', async ({
 });
 
 test.describe('acessibilidade (axe)', () => {
-  for (const path of ['/', '/termos/', '/privacidade/']) {
+  for (const path of ['/', '/termos/', '/privacidade/', '/404.html']) {
     test(`sem violações em ${path}`, async ({ page }) => {
       await page.goto(path);
       const results = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa']).analyze();
       expect(results.violations).toEqual([]);
     });
   }
+});
+
+test('calculadora usa singular para uma matrícula', async ({ page }) => {
+  await page.goto('/');
+  await page.locator('[data-calc-preset="1"]').click();
+  await expect(page.locator('.calc-paidline')).toContainText('1 matrícula paga na semana');
+  await expect(page.locator('[data-calc-range]')).toHaveAttribute(
+    'aria-valuetext',
+    /1 matrícula paga,/
+  );
+});
+
+test('página 404 dedicada não replica a home', async ({ page }) => {
+  await page.goto('/404.html');
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('Essa página não foi encontrada');
+  await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'noindex, follow');
 });

@@ -115,6 +115,7 @@ if (calcRange) {
   const calcRoot = calcRange.closest<HTMLElement>('.calc');
   const out = {
     paid: document.querySelector<HTMLElement>('[data-calc-paid]'),
+    paidLabel: document.querySelector<HTMLElement>('[data-calc-paid-label]'),
     total: document.querySelector<HTMLElement>('[data-calc-total]'),
     direct: document.querySelector<HTMLElement>('[data-calc-direct]'),
     bonus: document.querySelector<HTMLElement>('[data-calc-bonus]'),
@@ -125,11 +126,15 @@ if (calcRange) {
     const n = Number(calcRange.value);
     const { direct, bonus, total } = weeklyEarnings(n);
     if (out.paid) out.paid.textContent = String(n);
+    if (out.paidLabel) out.paidLabel.textContent = n === 1 ? 'matrícula paga' : 'matrículas pagas';
     if (out.total) out.total.textContent = brl(total);
     if (out.direct) out.direct.textContent = brl(direct);
     if (out.bonus) out.bonus.textContent = brl(bonus);
     if (out.bonusRow) out.bonusRow.classList.toggle('on', bonus > 0);
-    calcRange.setAttribute('aria-valuetext', `${n} matrículas pagas, ${brl(total)} na semana`);
+    calcRange.setAttribute(
+      'aria-valuetext',
+      `${n} ${n === 1 ? 'matrícula paga' : 'matrículas pagas'}, ${brl(total)} na semana`
+    );
     calcRange.style.setProperty('--calc-fill', `${((n - Number(calcRange.min)) / (Number(calcRange.max) - Number(calcRange.min))) * 100}%`);
   };
   calcRange.addEventListener('input', () => {

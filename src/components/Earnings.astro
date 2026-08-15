@@ -93,7 +93,9 @@ const fallbackRows = [1, BONUS_THRESHOLD, BONUS_THRESHOLD * 2, BONUS_THRESHOLD *
       </div>
 
       <p class="calc-paidline">
-        <strong data-calc-paid>{DEFAULT_N}</strong> matrículas pagas na semana
+        <strong data-calc-paid>{DEFAULT_N}</strong>{' '}
+        <span data-calc-paid-label>{DEFAULT_N === 1 ? 'matrícula paga' : 'matrículas pagas'}</span>{' '}
+        na semana
       </p>
 
       <div class="calc-result">
