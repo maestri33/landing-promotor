@@ -42,13 +42,13 @@ const fallbackRows = [1, BONUS_THRESHOLD, BONUS_THRESHOLD * 2, BONUS_THRESHOLD *
     </p>
 
     <div class="earn-models" data-reveal style="--d: 2">
-      <div class="model">
+      <div class="model spotlight-card border-beam" data-spotlight data-tilt>
         <span class="model-tag">Comissão direta</span>
         <p class="model-value">{brl(COMMISSION_DIRECT)}</p>
         <p class="model-desc">por <strong>cada matrícula paga</strong> que vier do seu link</p>
       </div>
       <span class="model-plus" aria-hidden="true">+</span>
-      <div class="model">
+      <div class="model spotlight-card border-beam" data-spotlight data-tilt>
         <span class="model-tag">Bônus de volume</span>
         <p class="model-value">{brl(BONUS_FLAT)}</p>
         <p class="model-desc">de bônus <strong>{bonusRule}</strong></p>
@@ -56,7 +56,7 @@ const fallbackRows = [1, BONUS_THRESHOLD, BONUS_THRESHOLD * 2, BONUS_THRESHOLD *
     </div>
 
     <!-- Calculadora (com JS) -->
-    <div class="calc calc-interactive" data-spotlight data-reveal style="--d: 3">
+    <div class="calc calc-interactive spotlight-card" data-spotlight data-reveal style="--d: 3">
       <label class="calc-q" for="calc-range">Quantas matrículas pagas por semana?</label>
 
       <div class="calc-rangewrap">

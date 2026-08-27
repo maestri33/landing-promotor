@@ -51,7 +51,7 @@ const icons = [
       <ol class="steps-grid">
         {steps.map((step, i) => (
           <li data-reveal style={`--d: ${i + 1}`}>
-            <article class="step-card">
+            <article class="step-card spotlight-card" data-spotlight data-tilt>
               <span class="step-n" aria-hidden="true"><i>{i + 1}</i></span>
               <span class="step-watermark" aria-hidden="true" data-n={`0${i + 1}`}></span>
               <svg

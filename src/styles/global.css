@@ -279,6 +279,65 @@ strong {
   }
 }
 
+/* Spotlight dinâmico & Border beam */
+.spotlight-card {
+  position: relative;
+  overflow: clip;
+}
+
+.spotlight-card::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  background: radial-gradient(
+    400px circle at var(--mx, -200px) var(--my, -200px),
+    rgb(217 177 90 / 0.22),
+    transparent 70%
+  );
+  opacity: 0;
+  transition: opacity 0.3s var(--ease-out);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.spotlight-card:hover::before {
+  opacity: 1;
+}
+
+/* Conic Border Beam */
+.border-beam {
+  position: relative;
+  overflow: clip;
+}
+
+.border-beam::after {
+  content: '';
+  position: absolute;
+  inset: -100%;
+  background: conic-gradient(
+    from 0deg at 50% 50%,
+    transparent 0deg,
+    transparent 280deg,
+    rgb(217 177 90 / 0.6) 360deg
+  );
+  animation: beam-spin 4s linear infinite;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.4s var(--ease-out);
+  z-index: 0;
+}
+
+.border-beam:hover::after {
+  opacity: 1;
+}
+
+@keyframes beam-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 /* ============================================================
    CTA (botão principal)
    ============================================================ */

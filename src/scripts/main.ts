@@ -222,14 +222,28 @@ if (litEls.length > 0) {
   }
 }
 
-/* ---------- Spotlight seguindo o mouse (cards marcados) ---------- */
+/* ---------- Spotlight seguindo o mouse & 3D Perspective Tilt ---------- */
 if (!REDUCED && window.matchMedia('(pointer: fine)').matches) {
   document.querySelectorAll<HTMLElement>('[data-spotlight]').forEach((card) => {
     card.addEventListener('pointermove', (e) => {
       const rect = card.getBoundingClientRect();
-      card.style.setProperty('--mx', `${e.clientX - rect.left}px`);
-      card.style.setProperty('--my', `${e.clientY - rect.top}px`);
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      card.style.setProperty('--mx', `${x}px`);
+      card.style.setProperty('--my', `${y}px`);
+
+      if (card.hasAttribute('data-tilt')) {
+        const xRel = x / rect.width - 0.5;
+        const yRel = y / rect.height - 0.5;
+        card.style.transform = `perspective(1000px) rotateX(${(-yRel * 8).toFixed(2)}deg) rotateY(${(xRel * 8).toFixed(2)}deg) translateY(-2px)`;
+      }
     });
+
+    if (card.hasAttribute('data-tilt')) {
+      card.addEventListener('pointerleave', () => {
+        card.style.transform = '';
+      });
+    }
   });
 }
 
